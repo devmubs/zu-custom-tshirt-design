@@ -1,0 +1,473 @@
+/**
+ * Admin Styles for ZU Custom T-Shirt Design
+ */
+
+/* General Admin Styles */
+.zu-ctsd-admin {
+    max-width: 1200px;
+}
+
+.zu-ctsd-admin h1 {
+    margin-bottom: 20px;
+}
+
+/* Dashboard Stats Grid */
+.zu-ctsd-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.zu-ctsd-stat-card {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+.zu-ctsd-stat-card .stat-icon {
+    width: 50px;
+    height: 50px;
+    background: #2271b1;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.zu-ctsd-stat-card .stat-icon.orders {
+    background: #46b450;
+}
+
+.zu-ctsd-stat-card .stat-icon.revenue {
+    background: #f0ad4e;
+}
+
+.zu-ctsd-stat-card .stat-icon.pending {
+    background: #d63638;
+}
+
+.zu-ctsd-stat-card .stat-icon .dashicons {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+}
+
+.zu-ctsd-stat-card .stat-content h3 {
+    margin: 0;
+    font-size: 24px;
+    color: #1d2327;
+}
+
+.zu-ctsd-stat-card .stat-content p {
+    margin: 5px 0 0;
+    color: #646970;
+}
+
+/* Quick Actions */
+.zu-ctsd-quick-actions {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.zu-ctsd-quick-actions h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.zu-ctsd-quick-actions .action-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.zu-ctsd-quick-actions .action-buttons .button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Recent Orders */
+.zu-ctsd-recent-orders {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.zu-ctsd-recent-orders h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+/* System Status */
+.zu-ctsd-system-status {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    padding: 20px;
+}
+
+.zu-ctsd-system-status h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+/* Status Badges */
+.zu-ctsd-status {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.zu-ctsd-status--active,
+.zu-ctsd-status--approved,
+.zu-ctsd-status--completed {
+    background: #d4edda;
+    color: #155724;
+}
+
+.zu-ctsd-status--inactive {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.zu-ctsd-status--pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.zu-ctsd-status--in_production {
+    background: #cce5ff;
+    color: #004085;
+}
+
+.zu-ctsd-status--rejected {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.zu-ctsd-status--warning {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.zu-ctsd-status--error {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* Feature Tags */
+.zu-ctsd-feature-tag {
+    display: inline-block;
+    padding: 2px 6px;
+    background: #e0e0e0;
+    border-radius: 3px;
+    font-size: 11px;
+    margin-right: 5px;
+}
+
+/* Empty State */
+.zu-ctsd-empty-state {
+    text-align: center;
+    padding: 40px;
+    color: #646970;
+}
+
+.zu-ctsd-empty-state .dashicons {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    color: #c3c4c7;
+}
+
+/* Templates List */
+.zu-ctsd-templates-list .column-thumb img {
+    border-radius: 4px;
+    border: 1px solid #c3c4c7;
+}
+
+/* Template Form */
+.zu-ctsd-template-form .zu-ctsd-form-wrapper {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+.zu-ctsd-image-uploads {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+}
+
+.zu-ctsd-image-upload {
+    text-align: center;
+}
+
+.zu-ctsd-image-upload label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.zu-ctsd-image-upload .image-preview-wrapper {
+    width: 100%;
+    height: 150px;
+    border: 2px dashed #c3c4c7;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.zu-ctsd-image-upload .image-preview-wrapper img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.zu-ctsd-image-upload .image-placeholder {
+    color: #c3c4c7;
+}
+
+.zu-ctsd-image-upload .image-placeholder .dashicons {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+}
+
+/* Printable Areas */
+.printable-area-section {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #c3c4c7;
+}
+
+.printable-area-section h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.printable-area-fields {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.printable-area-fields label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Pricing Section */
+.zu-ctsd-pricing-section {
+    margin-bottom: 20px;
+}
+
+.zu-ctsd-pricing-section h2 {
+    margin-top: 0;
+}
+
+.zu-ctsd-price-input {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.zu-ctsd-price-input .currency {
+    color: #646970;
+}
+
+.zu-ctsd-formula {
+    display: block;
+    padding: 15px;
+    background: #f0f0f1;
+    border-radius: 4px;
+    margin: 10px 0;
+}
+
+.zu-ctsd-example-calculation {
+    background: #f0f0f1;
+    padding: 15px;
+    border-radius: 4px;
+    list-style: none;
+}
+
+.zu-ctsd-example-calculation li {
+    padding: 5px 0;
+    border-bottom: 1px solid #c3c4c7;
+}
+
+.zu-ctsd-example-calculation li:last-child {
+    border-bottom: none;
+    font-weight: 600;
+}
+
+/* Orders Page */
+.zu-ctsd-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.zu-ctsd-badge--dtf {
+    background: #e3f2fd;
+    color: #1976d2;
+}
+
+.zu-ctsd-badge--screen {
+    background: #f3e5f5;
+    color: #7b1fa2;
+}
+
+.zu-ctsd-badge--digital {
+    background: #e8f5e9;
+    color: #388e3c;
+}
+
+.zu-ctsd-badge--vinyl {
+    background: #fff3e0;
+    color: #f57c00;
+}
+
+.zu-ctsd-badge--embroidery {
+    background: #fce4ec;
+    color: #c2185b;
+}
+
+.zu-ctsd-approved {
+    color: #46b450;
+    font-size: 12px;
+}
+
+/* Order Meta Box */
+.zu-ctsd-order-designs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.zu-ctsd-design-card {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.zu-ctsd-design-card .design-preview {
+    height: 200px;
+    background: #f0f0f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.zu-ctsd-design-card .design-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.zu-ctsd-design-card .design-preview .no-preview {
+    text-align: center;
+    color: #c3c4c7;
+}
+
+.zu-ctsd-design-card .design-details {
+    padding: 15px;
+}
+
+.zu-ctsd-design-card .design-details h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.zu-ctsd-design-card .design-info {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.zu-ctsd-design-card .design-info th {
+    text-align: left;
+    padding: 5px 10px 5px 0;
+    color: #646970;
+    font-weight: normal;
+}
+
+.zu-ctsd-design-card .design-info td {
+    padding: 5px 0;
+}
+
+.zu-ctsd-design-card .approval-info {
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.zu-ctsd-design-card .approval-info.approved {
+    background: #d4edda;
+    color: #155724;
+}
+
+.zu-ctsd-design-card .approval-notes {
+    background: #f0f0f1;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.zu-ctsd-design-card .design-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* Settings Form */
+.zu-ctsd-settings-wrapper .postbox {
+    margin-bottom: 20px;
+}
+
+.zu-ctsd-settings-wrapper .postbox h2 {
+    margin: 0;
+    padding: 15px;
+    border-bottom: 1px solid #c3c4c7;
+    font-size: 14px;
+}
+
+.zu-ctsd-settings-wrapper .inside {
+    padding: 15px;
+}
+
+/* Responsive */
+@media screen and (max-width: 782px) {
+    .zu-ctsd-form-wrapper {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .zu-ctsd-stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .zu-ctsd-image-uploads {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

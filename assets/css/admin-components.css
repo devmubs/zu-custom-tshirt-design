@@ -1,0 +1,248 @@
+/**
+ * Admin Component Styles for ZU Custom T-Shirt Design
+ */
+
+/* Postbox Styles */
+.postbox {
+    margin-bottom: 20px;
+}
+
+.postbox h2 {
+    font-size: 14px;
+    padding: 8px 12px;
+    margin: 0;
+    line-height: 1.4;
+    border-bottom: 1px solid #c3c4c7;
+}
+
+/* Form Table */
+.form-table th {
+    width: 200px;
+    padding: 20px 10px 20px 0;
+}
+
+.form-table td {
+    padding: 15px 10px;
+}
+
+/* Button Styles */
+.button {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.button .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+/* WP List Table */
+.wp-list-table {
+    margin-top: 10px;
+}
+
+.wp-list-table .column-thumb {
+    width: 60px;
+    text-align: center;
+}
+
+/* Tablenav */
+.tablenav {
+    margin: 15px 0;
+}
+
+.tablenav .actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* Subsubsub Navigation */
+.subsubsub {
+    margin: 15px 0;
+    padding: 0;
+    list-style: none;
+}
+
+.subsubsub li {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+}
+
+.subsubsub li a {
+    padding: 0 5px;
+    line-height: 2;
+}
+
+.subsubsub li a.current {
+    font-weight: 600;
+    border: none;
+}
+
+.subsubsub li .count {
+    color: #646970;
+    font-weight: 400;
+}
+
+/* Row Actions */
+.row-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* Notice Styles */
+.notice {
+    margin: 15px 0;
+}
+
+.notice p {
+    margin: 0.5em 0;
+    padding: 2px;
+}
+
+/* Check Column */
+.check-column {
+    width: 2.2em;
+    padding: 8px 10px;
+    vertical-align: top;
+}
+
+/* Widefat Table */
+.widefat {
+    border-spacing: 0;
+    width: 100%;
+    clear: both;
+    margin: 0;
+}
+
+.widefat * {
+    word-wrap: break-word;
+}
+
+.widefat a {
+    text-decoration: none;
+}
+
+.widefat thead th,
+.widefat thead td {
+    border-bottom: 1px solid #c3c4c7;
+}
+
+.widefat tfoot th,
+.widefat tfoot td {
+    border-top: 1px solid #c3c4c7;
+    border-bottom: none;
+}
+
+.widefat th {
+    padding: 8px 10px;
+}
+
+.widefat td {
+    padding: 8px 10px;
+    vertical-align: top;
+}
+
+.widefat th input {
+    margin: 0 0 0 8px;
+    padding: 0;
+    vertical-align: text-top;
+}
+
+.widefat .column-cb {
+    width: 2.2em;
+}
+
+/* Striped Table */
+.widefat.striped > tbody > :nth-child(odd) {
+    background-color: #f6f7f7;
+}
+
+/* Fixed Column */
+.widefat.fixed {
+    table-layout: fixed;
+}
+
+/* Code */
+code {
+    display: inline-block;
+    padding: 2px 6px;
+    background: #f0f0f1;
+    border-radius: 3px;
+    font-family: monospace;
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+/* Description */
+.description {
+    color: #646970;
+    font-style: italic;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+/* Inline Edit */
+.inline-edit-row {
+    display: none;
+}
+
+/* Spinner */
+.spinner {
+    float: none;
+    margin: 0;
+    vertical-align: middle;
+}
+
+/* Screen Options */
+#screen-options-wrap {
+    margin: 0;
+    padding: 8px 20px 12px;
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-top: none;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+/* Help Tab */
+#contextual-help-wrap {
+    margin: 0;
+    padding: 0;
+}
+
+#contextual-help-back {
+    background: #f0f6fc;
+}
+
+/* Metabox Holder */
+.metabox-holder {
+    padding-top: 10px;
+}
+
+/* Postbox Container */
+#poststuff {
+    padding-top: 10px;
+}
+
+/* Misc */
+.clear {
+    clear: both;
+}
+
+.hide {
+    display: none;
+}
+
+/* Error State */
+.error {
+    border-color: #d63638 !important;
+}
+
+/* Success State */
+.success {
+    border-color: #46b450 !important;
+}
