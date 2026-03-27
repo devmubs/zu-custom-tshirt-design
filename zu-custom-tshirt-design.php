@@ -78,6 +78,9 @@ class ZU_Custom_TShirt_Design {
         require_once ZU_CTSD_PLUGIN_DIR . 'includes/class-zu-ctsd-activator.php';
         require_once ZU_CTSD_PLUGIN_DIR . 'includes/class-zu-ctsd-deactivator.php';
 
+        // Security
+        require_once ZU_CTSD_PLUGIN_DIR . 'includes/class-zu-ctsd-security.php';
+
         // Database
         require_once ZU_CTSD_PLUGIN_DIR . 'includes/class-zu-ctsd-database.php';
 
@@ -98,9 +101,6 @@ class ZU_Custom_TShirt_Design {
 
         // Pricing engine
         require_once ZU_CTSD_PLUGIN_DIR . 'includes/class-zu-ctsd-pricing.php';
-
-        // Security
-        require_once ZU_CTSD_PLUGIN_DIR . 'includes/class-zu-ctsd-security.php';
 
         $this->loader = new ZU_CTSD_Loader();
     }

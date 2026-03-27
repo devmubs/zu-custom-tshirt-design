@@ -280,7 +280,9 @@ class ZU_CTSD_Public {
             $design_id = intval(wp_unslash($_POST['zu_ctsd_design_id']));
             $design = ZU_CTSD_Database::get_design($design_id);
             
-            if ($design) {
+            // Verify design ownership (user_id 0 is for guest designs)
+            $user_id = get_current_user_id();
+            if ($design && ($design->user_id == $user_id || $design->user_id == 0)) {
                 $cart_item_data['zu_ctsd_design_id'] = $design_id;
                 $cart_item_data['zu_ctsd_design_data'] = $design->design_data;
                 $cart_item_data['zu_ctsd_preview_image'] = $design->preview_image;
