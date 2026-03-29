@@ -34,6 +34,11 @@ $template_data = $is_edit ? (array) $template : [
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['zu_ctsd_template_nonce'])) {
     if (wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['zu_ctsd_template_nonce'])), 'save_zu_ctsd_template')) {
+        // Check capability
+        if (!ZU_CTSD_Security::check_capability('manage_zu_tshirt')) {
+            wp_die(__('You do not have permission to perform this action.', 'zu-custom-tshirt'));
+        }
+
         $template_data = [
             'template_name' => sanitize_text_field(wp_unslash($_POST['template_name'] ?? '')),
             'template_slug' => sanitize_title(wp_unslash($_POST['template_slug'] ?? $_POST['template_name'] ?? '')),

@@ -258,6 +258,11 @@ class ZU_CTSD_Admin {
 
         check_admin_referer('delete_template_' . $template_id);
 
+        // Check capability
+        if (!ZU_CTSD_Security::check_capability('manage_zu_tshirt')) {
+            wp_die(__('You do not have permission to perform this action.', 'zu-custom-tshirt'));
+        }
+
         ZU_CTSD_Database::delete_template($template_id);
 
         wp_redirect(admin_url('admin.php?page=zu-tshirt-templates&deleted=1'));
