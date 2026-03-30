@@ -26,6 +26,11 @@ $rule_type_labels = [
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['zu_ctsd_pricing_nonce'])) {
+    // Check capability for security (defense in depth)
+    if (!ZU_CTSD_Security::check_capability('manage_zu_tshirt')) {
+        wp_die(__('You do not have permission to perform this action.', 'zu-custom-tshirt'));
+    }
+
     if (wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['zu_ctsd_pricing_nonce'])), 'save_zu_ctsd_pricing')) {
         foreach ($_POST['pricing'] as $rule_id => $data) {
             ZU_CTSD_Database::update_pricing_rule(
