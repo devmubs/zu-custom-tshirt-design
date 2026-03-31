@@ -256,6 +256,11 @@ class ZU_CTSD_Admin {
             exit;
         }
 
+        // Defense-in-depth: Ensure user has the required capability
+        if (!ZU_CTSD_Security::check_capability('manage_zu_tshirt')) {
+            wp_die(esc_html__('You do not have permission to perform this action.', 'zu-custom-tshirt'));
+        }
+
         check_admin_referer('delete_template_' . $template_id);
 
         ZU_CTSD_Database::delete_template($template_id);
