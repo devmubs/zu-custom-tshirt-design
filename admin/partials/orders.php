@@ -12,6 +12,10 @@ if (!defined('ABSPATH')) {
 
 // Handle bulk actions
 if (isset($_POST['bulk_action']) && isset($_POST['order_ids'])) {
+    if (!ZU_CTSD_Security::check_capability()) {
+        wp_die(__('You do not have permission to perform this action.', 'zu-custom-tshirt'));
+    }
+
     check_admin_referer('zu_ctsd_bulk_actions', 'zu_ctsd_bulk_nonce');
     
     $action = sanitize_text_field(wp_unslash($_POST['bulk_action']));
