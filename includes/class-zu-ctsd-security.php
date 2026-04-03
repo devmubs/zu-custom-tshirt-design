@@ -160,7 +160,10 @@ class ZU_CTSD_Security {
         }
 
         // Check for PHP code in image
-        if (self::contains_php_code($file['tmp_name'])) {
+        $content = file_get_contents($file['tmp_name']);
+        if ($content === false) {
+            $errors[] = __('Could not read file content for security verification.', 'zu-custom-tshirt');
+        } elseif (self::contains_php_code($content)) {
             $errors[] = __('File contains potentially malicious code.', 'zu-custom-tshirt');
         }
 
@@ -173,11 +176,9 @@ class ZU_CTSD_Security {
     }
 
     /**
-     * Check if file contains PHP code
+     * Check if content contains PHP code
      */
-    private static function contains_php_code(string $file_path): bool {
-        $content = file_get_contents($file_path);
-        
+    public static function contains_php_code(string $content): bool {
         // Check for PHP tags
         $php_patterns = [
             '/<\?php/i',
