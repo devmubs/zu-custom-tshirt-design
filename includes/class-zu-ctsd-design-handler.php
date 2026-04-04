@@ -280,6 +280,21 @@ class ZU_CTSD_Design_Handler {
             return '';
         }
 
+        // Validate image data
+        if (class_exists('finfo')) {
+            $finfo = new finfo(FILEINFO_MIME_TYPE);
+            $mime_type = $finfo->buffer($image_data);
+            $allowed_mimes = ['image/jpeg', 'image/png', 'image/gif'];
+
+            if (!in_array($mime_type, $allowed_mimes, true)) {
+                return '';
+            }
+        }
+
+        if (ZU_CTSD_Security::contains_php_code($image_data)) {
+            return '';
+        }
+
         // Generate unique filename
         $filename = 'design_' . $user_id . '_' . time() . '_' . wp_rand(1000, 9999) . '.png';
         
