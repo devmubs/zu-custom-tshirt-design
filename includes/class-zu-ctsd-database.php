@@ -63,7 +63,10 @@ class ZU_CTSD_Database {
             $params[] = $args['status'];
         }
 
-        $orderby = sanitize_sql_orderby("{$args['orderby']} {$args['order']}");
+        $orderby_field = ZU_CTSD_Security::sanitize_orderby($args['orderby'], ['id', 'user_id', 'product_id', 'created_at', 'total_price', 'status']);
+        $order_dir = ZU_CTSD_Security::sanitize_order($args['order']);
+        $orderby = "{$orderby_field} {$order_dir}";
+
         $limit = intval($args['limit']);
         $offset = intval($args['offset']);
 
