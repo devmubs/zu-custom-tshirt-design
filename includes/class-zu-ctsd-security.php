@@ -151,9 +151,15 @@ class ZU_CTSD_Security {
         }
 
         // Verify MIME type
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mime_type = finfo_file($finfo, $file['tmp_name']);
-        finfo_close($finfo);
+        if (function_exists('finfo_open')) {
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mime_type = finfo_file($finfo, $file['tmp_name']);
+            finfo_close($finfo);
+        } else {
+            // Fallback to MIME type associated with extension if finfo is not available
+            // This is safer than trusting client-provided $file['type']
+            $mime_type = $file_info['type'] ?? '';
+        }
 
         if (!isset(self::$allowed_mime_types[$mime_type])) {
             $errors[] = __('Invalid file type detected.', 'zu-custom-tshirt');
