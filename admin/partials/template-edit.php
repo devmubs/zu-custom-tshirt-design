@@ -33,6 +33,9 @@ $template_data = $is_edit ? (array) $template : [
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['zu_ctsd_template_nonce'])) {
+    if (!ZU_CTSD_Security::check_capability()) {
+        wp_die(__('You do not have permission to manage templates.', 'zu-custom-tshirt'));
+    }
     if (wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['zu_ctsd_template_nonce'])), 'save_zu_ctsd_template')) {
         $template_data = [
             'template_name' => sanitize_text_field(wp_unslash($_POST['template_name'] ?? '')),
