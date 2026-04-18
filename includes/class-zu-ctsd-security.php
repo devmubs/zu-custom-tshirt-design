@@ -151,6 +151,11 @@ class ZU_CTSD_Security {
         }
 
         // Verify MIME type
+        if (!function_exists('finfo_open')) {
+            $errors[] = __('Environment error: MIME type verification is unavailable.', 'zu-custom-tshirt');
+            return ['valid' => false, 'errors' => $errors];
+        }
+
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
         $mime_type = finfo_file($finfo, $file['tmp_name']);
         finfo_close($finfo);
