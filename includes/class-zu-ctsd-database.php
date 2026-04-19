@@ -63,7 +63,10 @@ class ZU_CTSD_Database {
             $params[] = $args['status'];
         }
 
-        $orderby = sanitize_sql_orderby("{$args['orderby']} {$args['order']}");
+        $allowed_orderby = ['id', 'user_id', 'product_id', 'order_id', 'design_name', 'print_side', 'status', 'total_price', 'created_at'];
+        $orderby_col     = in_array($args['orderby'], $allowed_orderby, true) ? $args['orderby'] : 'created_at';
+        $order_dir       = in_array(strtoupper($args['order']), ['ASC', 'DESC'], true) ? strtoupper($args['order']) : 'DESC';
+        $orderby         = "{$orderby_col} {$order_dir}";
         $limit = intval($args['limit']);
         $offset = intval($args['offset']);
 
