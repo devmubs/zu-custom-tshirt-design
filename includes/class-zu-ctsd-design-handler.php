@@ -289,6 +289,9 @@ class ZU_CTSD_Design_Handler {
             if (!in_array($mime_type, $allowed_mimes, true)) {
                 return '';
             }
+        } else {
+            // Securely fail if finfo is not available
+            return '';
         }
 
         if (ZU_CTSD_Security::contains_php_code($image_data)) {

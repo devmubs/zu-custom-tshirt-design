@@ -151,12 +151,16 @@ class ZU_CTSD_Security {
         }
 
         // Verify MIME type
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mime_type = finfo_file($finfo, $file['tmp_name']);
-        finfo_close($finfo);
+        if (function_exists('finfo_open')) {
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mime_type = finfo_file($finfo, $file['tmp_name']);
+            finfo_close($finfo);
 
-        if (!isset(self::$allowed_mime_types[$mime_type])) {
-            $errors[] = __('Invalid file type detected.', 'zu-custom-tshirt');
+            if (!isset(self::$allowed_mime_types[$mime_type])) {
+                $errors[] = __('Invalid file type detected.', 'zu-custom-tshirt');
+            }
+        } else {
+            $errors[] = __('Server environment does not support advanced file type verification.', 'zu-custom-tshirt');
         }
 
         // Check for PHP code in image
