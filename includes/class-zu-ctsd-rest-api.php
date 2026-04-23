@@ -333,6 +333,14 @@ class ZU_CTSD_REST_API {
         $product_id = intval($params['product_id'] ?? 0);
         $design_data = $params['design_data'] ?? [];
 
+        // Validate design data is an array before sanitization
+        if (!is_array($design_data)) {
+            $design_data = [];
+        }
+
+        // Sanitize design data (includes element limiting for DoS protection)
+        $design_data = ZU_CTSD_Security::sanitize_design_data($design_data);
+
         $product = wc_get_product($product_id);
         $base_price = $product ? $product->get_price() : 0;
 

@@ -67,7 +67,9 @@ class ZU_CTSD_Security {
 
         // Sanitize elements
         if (isset($data['elements']) && is_array($data['elements'])) {
-            $sanitized['elements'] = array_map([__CLASS__, 'sanitize_element'], $data['elements']);
+            // Limit to 50 elements to prevent DoS
+            $elements = array_slice($data['elements'], 0, 50, true);
+            $sanitized['elements'] = array_map([__CLASS__, 'sanitize_element'], $elements);
         }
 
         // Sanitize other fields
@@ -151,6 +153,11 @@ class ZU_CTSD_Security {
         }
 
         // Verify MIME type
+        if (!function_exists('finfo_open')) {
+            $errors[] = __('Required PHP extension (Fileinfo) is missing.', 'zu-custom-tshirt');
+            return ['valid' => false, 'errors' => $errors];
+        }
+
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
         $mime_type = finfo_file($finfo, $file['tmp_name']);
         finfo_close($finfo);
