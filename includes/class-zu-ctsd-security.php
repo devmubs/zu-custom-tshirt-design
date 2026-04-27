@@ -67,7 +67,9 @@ class ZU_CTSD_Security {
 
         // Sanitize elements
         if (isset($data['elements']) && is_array($data['elements'])) {
-            $sanitized['elements'] = array_map([__CLASS__, 'sanitize_element'], $data['elements']);
+            // Limit elements to 50 to prevent DoS attacks
+            $elements = array_slice($data['elements'], 0, 50, true);
+            $sanitized['elements'] = array_map([__CLASS__, 'sanitize_element'], $elements);
         }
 
         // Sanitize other fields
@@ -151,12 +153,25 @@ class ZU_CTSD_Security {
         }
 
         // Verify MIME type
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mime_type = finfo_file($finfo, $file['tmp_name']);
-        finfo_close($finfo);
+        $mime_type = '';
+        if (function_exists('finfo_open')) {
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mime_type = finfo_file($finfo, $file['tmp_name']);
+            finfo_close($finfo);
 
-        if (!isset(self::$allowed_mime_types[$mime_type])) {
-            $errors[] = __('Invalid file type detected.', 'zu-custom-tshirt');
+            if (!isset(self::$allowed_mime_types[$mime_type])) {
+                $errors[] = __('Invalid file type detected.', 'zu-custom-tshirt');
+            }
+        } else {
+            // Fallback if finfo is not available
+            self::log_security_event('finfo_unavailable', ['file' => $file['name']]);
+
+            // Use the MIME type determined by WordPress based on extension (done in wp_check_filetype above)
+            $mime_type = $file_info['type'] ?? '';
+
+            if (!$mime_type || !isset(self::$allowed_mime_types[$mime_type])) {
+                $errors[] = __('Invalid file type detected.', 'zu-custom-tshirt');
+            }
         }
 
         // Check for PHP code in image
