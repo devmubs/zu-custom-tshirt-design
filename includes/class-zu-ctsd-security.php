@@ -67,7 +67,15 @@ class ZU_CTSD_Security {
 
         // Sanitize elements
         if (isset($data['elements']) && is_array($data['elements'])) {
-            $sanitized['elements'] = array_map([__CLASS__, 'sanitize_element'], $data['elements']);
+            // Limit elements to prevent DoS
+            $elements = array_slice($data['elements'], 0, 50, true);
+            $sanitized['elements'] = [];
+
+            foreach ($elements as $key => $element) {
+                if (is_array($element)) {
+                    $sanitized['elements'][$key] = self::sanitize_element($element);
+                }
+            }
         }
 
         // Sanitize other fields
