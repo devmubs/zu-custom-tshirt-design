@@ -67,7 +67,11 @@ class ZU_CTSD_Security {
 
         // Sanitize elements
         if (isset($data['elements']) && is_array($data['elements'])) {
-            $sanitized['elements'] = array_map([__CLASS__, 'sanitize_element'], $data['elements']);
+            // Limit elements to 50 to prevent DoS attacks
+            $elements = array_slice($data['elements'], 0, 50, true);
+            $sanitized['elements'] = array_map(function($element) {
+                return is_array($element) ? self::sanitize_element($element) : [];
+            }, $elements);
         }
 
         // Sanitize other fields
@@ -151,11 +155,17 @@ class ZU_CTSD_Security {
         }
 
         // Verify MIME type
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mime_type = finfo_file($finfo, $file['tmp_name']);
-        finfo_close($finfo);
+        $mime_type = '';
+        if (function_exists('finfo_open')) {
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mime_type = finfo_file($finfo, $file['tmp_name']);
+            finfo_close($finfo);
+        } else {
+            self::log_security_event('finfo_unavailable', ['file' => $file['name']]);
+            $errors[] = __('File validation failed due to server configuration.', 'zu-custom-tshirt');
+        }
 
-        if (!isset(self::$allowed_mime_types[$mime_type])) {
+        if ($mime_type && !isset(self::$allowed_mime_types[$mime_type])) {
             $errors[] = __('Invalid file type detected.', 'zu-custom-tshirt');
         }
 
