@@ -328,10 +328,29 @@ class ZU_CTSD_REST_API {
      * Calculate price
      */
     public function calculate_price(WP_REST_Request $request): WP_REST_Response {
+        // Rate limiting
+        if (!ZU_CTSD_Security::check_rate_limit('calculate_price', 30, 60)) {
+            ZU_CTSD_Security::log_security_event('rate_limit_exceeded', [
+                'endpoint' => 'calculate_price',
+                'ip' => $_SERVER['REMOTE_ADDR'] ?? 'unknown'
+            ]);
+            return new WP_REST_Response([
+                'success' => false,
+                'message' => __('Too many requests.', 'zu-custom-tshirt'),
+            ], 429);
+        }
+
         $params = $request->get_params();
         
+        if (!isset($params['design_data']) || !is_array($params['design_data'])) {
+            return new WP_REST_Response([
+                'success' => false,
+                'message' => __('Invalid design data.', 'zu-custom-tshirt'),
+            ], 400);
+        }
+
         $product_id = intval($params['product_id'] ?? 0);
-        $design_data = $params['design_data'] ?? [];
+        $design_data = ZU_CTSD_Security::sanitize_design_data($params['design_data']);
 
         $product = wc_get_product($product_id);
         $base_price = $product ? $product->get_price() : 0;
