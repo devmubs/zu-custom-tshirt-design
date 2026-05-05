@@ -65,9 +65,12 @@ class ZU_CTSD_Security {
     public static function sanitize_design_data(array $data): array {
         $sanitized = [];
 
-        // Sanitize elements
+        // Sanitize elements (limit to 50 for security/performance)
         if (isset($data['elements']) && is_array($data['elements'])) {
-            $sanitized['elements'] = array_map([__CLASS__, 'sanitize_element'], $data['elements']);
+            $elements = array_slice($data['elements'], 0, 50, true);
+            $sanitized['elements'] = array_map(function($element) {
+                return is_array($element) ? self::sanitize_element($element) : [];
+            }, $elements);
         }
 
         // Sanitize other fields
@@ -151,11 +154,16 @@ class ZU_CTSD_Security {
         }
 
         // Verify MIME type
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mime_type = finfo_file($finfo, $file['tmp_name']);
-        finfo_close($finfo);
+        $mime_type = '';
+        if (function_exists('finfo_open')) {
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mime_type = finfo_file($finfo, $file['tmp_name']);
+            finfo_close($finfo);
+        } elseif (function_exists('mime_content_type')) {
+            $mime_type = mime_content_type($file['tmp_name']);
+        }
 
-        if (!isset(self::$allowed_mime_types[$mime_type])) {
+        if (!$mime_type || !isset(self::$allowed_mime_types[$mime_type])) {
             $errors[] = __('Invalid file type detected.', 'zu-custom-tshirt');
         }
 
