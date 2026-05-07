@@ -251,6 +251,10 @@ class ZU_CTSD_Admin {
      * Handle template delete
      */
     private function handle_template_delete(int $template_id): void {
+        if (!current_user_can('manage_zu_tshirt')) {
+            wp_die(__('You do not have permission to delete templates.', 'zu-custom-tshirt'));
+        }
+
         if (!$template_id) {
             wp_redirect(admin_url('admin.php?page=zu-tshirt-templates'));
             exit;

@@ -100,6 +100,21 @@ class ZU_CTSD_REST_API {
                 'methods' => WP_REST_Server::CREATABLE,
                 'callback' => [$this, 'calculate_price'],
                 'permission_callback' => '__return_true',
+                'args' => [
+                    'product_id' => [
+                        'required' => true,
+                        'validate_callback' => function($param) {
+                            return is_numeric($param);
+                        },
+                        'sanitize_callback' => 'absint',
+                    ],
+                    'design_data' => [
+                        'required' => true,
+                        'validate_callback' => function($param) {
+                            return is_array($param);
+                        },
+                    ],
+                ],
             ],
         ]);
 
@@ -328,16 +343,31 @@ class ZU_CTSD_REST_API {
      * Calculate price
      */
     public function calculate_price(WP_REST_Request $request): WP_REST_Response {
+        // Rate limiting
+        if (!ZU_CTSD_Security::check_rate_limit('calculate_price', 30, 60)) {
+            ZU_CTSD_Security::log_security_event('rate_limit_exceeded', [
+                'endpoint' => '/calculate-price',
+                'ip' => $_SERVER['REMOTE_ADDR'] ?? 'unknown',
+            ]);
+            return new WP_REST_Response([
+                'success' => false,
+                'message' => __('Too many requests. Please try again later.', 'zu-custom-tshirt'),
+            ], 429);
+        }
+
         $params = $request->get_params();
         
         $product_id = intval($params['product_id'] ?? 0);
         $design_data = $params['design_data'] ?? [];
 
+        // Sanitize design data
+        $sanitized_data = ZU_CTSD_Security::sanitize_design_data($design_data);
+
         $product = wc_get_product($product_id);
         $base_price = $product ? $product->get_price() : 0;
 
         $pricing_engine = new ZU_CTSD_Pricing();
-        $price_data = $pricing_engine->get_live_price($base_price, $design_data);
+        $price_data = $pricing_engine->get_live_price($base_price, $sanitized_data);
 
         return new WP_REST_Response([
             'success' => true,
