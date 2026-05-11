@@ -65,9 +65,15 @@ class ZU_CTSD_Security {
     public static function sanitize_design_data(array $data): array {
         $sanitized = [];
 
-        // Sanitize elements
+        // Sanitize elements - Enforce hard limit of 50 elements to prevent DoS
         if (isset($data['elements']) && is_array($data['elements'])) {
-            $sanitized['elements'] = array_map([__CLASS__, 'sanitize_element'], $data['elements']);
+            $elements = array_slice($data['elements'], 0, 50, true);
+            $sanitized['elements'] = [];
+            foreach ($elements as $element) {
+                if (is_array($element)) {
+                    $sanitized['elements'][] = self::sanitize_element($element);
+                }
+            }
         }
 
         // Sanitize other fields
