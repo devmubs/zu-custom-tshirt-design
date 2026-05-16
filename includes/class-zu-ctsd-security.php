@@ -67,7 +67,13 @@ class ZU_CTSD_Security {
 
         // Sanitize elements
         if (isset($data['elements']) && is_array($data['elements'])) {
-            $sanitized['elements'] = array_map([__CLASS__, 'sanitize_element'], $data['elements']);
+            // Enforce a hard limit of 50 elements to prevent DoS attacks
+            $elements = array_slice($data['elements'], 0, 50);
+
+            // Ensure each element is an array before sanitizing
+            $elements = array_filter($elements, 'is_array');
+
+            $sanitized['elements'] = array_map([__CLASS__, 'sanitize_element'], $elements);
         }
 
         // Sanitize other fields
