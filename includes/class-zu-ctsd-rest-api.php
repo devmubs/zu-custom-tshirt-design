@@ -331,7 +331,10 @@ class ZU_CTSD_REST_API {
         $params = $request->get_params();
         
         $product_id = intval($params['product_id'] ?? 0);
-        $design_data = $params['design_data'] ?? [];
+        $design_data = isset($params['design_data']) && is_array($params['design_data']) ? $params['design_data'] : [];
+
+        // Sanitize design data and enforce volume limits
+        $design_data = ZU_CTSD_Security::sanitize_design_data($design_data);
 
         $product = wc_get_product($product_id);
         $base_price = $product ? $product->get_price() : 0;
